@@ -2,16 +2,20 @@ package com.ndrewcoding.leilao.dao;
 
 import com.ndrewcoding.leilao.model.Lance;
 import com.ndrewcoding.leilao.model.Leilao;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 
 @Repository
 public class LanceDao {
 
-    @PersistenceContext
-    private EntityManager em;
+    private final EntityManager em;
+
+    @Autowired
+    public LanceDao(EntityManager entityManager) {
+        this.em = entityManager;
+    }
 
     public void salvar(Lance lance) {
         em.persist(lance);
