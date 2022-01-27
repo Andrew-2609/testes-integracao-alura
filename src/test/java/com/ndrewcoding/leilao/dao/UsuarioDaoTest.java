@@ -26,22 +26,24 @@ public class UsuarioDaoTest {
 
     @Test
     void deveriaEncontrarUsuarioCadastrado() {
-        Usuario novoUsuario = new Usuario("Andrew", "andrew@email.com", "13579");
+        Usuario usuario = criarUsuario();
 
-        entityManager.persist(novoUsuario);
-
-        Usuario usuarioEncontrado = this.usuarioDao.buscarPorUsername(novoUsuario.getNome());
+        Usuario usuarioEncontrado = this.usuarioDao.buscarPorUsername(usuario.getNome());
 
         Assertions.assertNotNull(usuarioEncontrado);
     }
 
     @Test
     void naoDeveriaEncontrarUsuarioNaoCadastrado() {
-        Usuario novoUsuario = new Usuario("Andrew", "andrew@email.com", "13579");
+        criarUsuario();
 
-        entityManager.persist(novoUsuario);
-        
         Assertions.assertThrows(NoResultException.class, () -> this.usuarioDao.buscarPorUsername("Ndrew"));
+    }
+
+    private Usuario criarUsuario() {
+        Usuario novoUsuario = new Usuario("Andrew", "andrew@email.com", "13579");
+        this.entityManager.persist(novoUsuario);
+        return novoUsuario;
     }
 
     @AfterEach
