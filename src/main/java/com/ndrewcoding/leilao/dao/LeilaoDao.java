@@ -2,18 +2,22 @@ package com.ndrewcoding.leilao.dao;
 
 import com.ndrewcoding.leilao.model.Leilao;
 import com.ndrewcoding.leilao.model.Usuario;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import java.time.LocalDate;
 import java.util.List;
 
 @Repository
 public class LeilaoDao {
+    
+    private final EntityManager em;
 
-    @PersistenceContext
-    private EntityManager em;
+    @Autowired
+    public LeilaoDao(EntityManager entityManager) {
+        this.em = entityManager;
+    }
 
     public void salvar(Leilao leilao) {
         em.merge(leilao);
