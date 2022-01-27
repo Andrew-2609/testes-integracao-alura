@@ -40,6 +40,15 @@ public class UsuarioDaoTest {
         Assertions.assertThrows(NoResultException.class, () -> this.usuarioDao.buscarPorUsername("Ndrew"));
     }
 
+    @Test
+    void deveriaDeletarUmUsuario() {
+        Usuario usuarioCriado = criarUsuario();
+
+        this.usuarioDao.deletar(usuarioCriado);
+
+        Assertions.assertThrows(NoResultException.class, () -> this.usuarioDao.buscarPorUsername(usuarioCriado.getNome()));
+    }
+
     private Usuario criarUsuario() {
         Usuario novoUsuario = new Usuario("Andrew", "andrew@email.com", "13579");
         this.entityManager.persist(novoUsuario);
