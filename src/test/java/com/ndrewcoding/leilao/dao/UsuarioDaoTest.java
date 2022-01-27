@@ -12,7 +12,7 @@ public class UsuarioDaoTest {
     private UsuarioDao usuarioDao;
 
     @Test
-    void testeBuscaDeUsuarioPeloUsername() {
+    void deveriaEncontrarUsuarioCadastrado() {
         EntityManager entityManager = JPAUtil.getEntityManager();
 
         this.usuarioDao = new UsuarioDao(entityManager);
