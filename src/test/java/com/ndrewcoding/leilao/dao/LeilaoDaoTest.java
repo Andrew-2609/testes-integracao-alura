@@ -39,6 +39,24 @@ public class LeilaoDaoTest {
         Assertions.assertNotNull(leilaoEncontrado);
     }
 
+    @Test
+    void deveriaAtualizarUmLeilao() {
+        Usuario usuario = criarUsuario();
+
+        Leilao leilao = new Leilao("Deutschland Flugzeug Ticket", new BigDecimal("100"), LocalDate.now(), usuario);
+
+        leilao = this.leilaoDao.salvar(leilao);
+
+        leilao.setNome("Airplane Ticket to Germany");
+
+        leilao = this.leilaoDao.salvar(leilao);
+
+        Leilao leilaoEncontrado = this.leilaoDao.buscarPorId(leilao.getId());
+
+        Assertions.assertEquals("Airplane Ticket to Germany", leilaoEncontrado.getNome());
+        Assertions.assertEquals(usuario, leilaoEncontrado.getUsuario());
+    }
+
     private Usuario criarUsuario() {
         Usuario novoUsuario = new Usuario("Andrew", "andrew@email.com", "13579");
         this.entityManager.persist(novoUsuario);
