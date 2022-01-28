@@ -1,10 +1,16 @@
 package com.ndrewcoding.leilao.dao;
 
+import com.ndrewcoding.leilao.model.Leilao;
+import com.ndrewcoding.leilao.model.Usuario;
 import com.ndrewcoding.leilao.util.JPAUtil;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import javax.persistence.EntityManager;
+import java.math.BigDecimal;
+import java.time.LocalDate;
 
 public class LeilaoDaoTest {
 
@@ -18,6 +24,25 @@ public class LeilaoDaoTest {
         this.leilaoDao = new LeilaoDao(entityManager);
 
         this.entityManager.getTransaction().begin();
+    }
+
+    @Test
+    void deveriaCadastrarUmLeilao() {
+        Usuario usuario = criarUsuario();
+
+        Leilao leilao = new Leilao("Deutschland Flugzeug Ticket", new BigDecimal("100"), LocalDate.now(), usuario);
+
+        Leilao leilaoSalvo = this.leilaoDao.salvar(leilao);
+
+        Leilao leilaoEncontrado = this.leilaoDao.buscarPorId(leilaoSalvo.getId());
+
+        Assertions.assertNotNull(leilaoEncontrado);
+    }
+
+    private Usuario criarUsuario() {
+        Usuario novoUsuario = new Usuario("Andrew", "andrew@email.com", "13579");
+        this.entityManager.persist(novoUsuario);
+        return novoUsuario;
     }
 
     @AfterEach
