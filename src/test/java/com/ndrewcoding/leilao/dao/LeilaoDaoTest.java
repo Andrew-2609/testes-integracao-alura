@@ -3,14 +3,14 @@ package com.ndrewcoding.leilao.dao;
 import com.ndrewcoding.leilao.model.Leilao;
 import com.ndrewcoding.leilao.model.Usuario;
 import com.ndrewcoding.leilao.util.JPAUtil;
+import com.ndrewcoding.leilao.util.builder.LeilaoBuilder;
+import com.ndrewcoding.leilao.util.builder.UsuarioBuilder;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import javax.persistence.EntityManager;
-import java.math.BigDecimal;
-import java.time.LocalDate;
 
 public class LeilaoDaoTest {
 
@@ -28,9 +28,19 @@ public class LeilaoDaoTest {
 
     @Test
     void deveriaCadastrarUmLeilao() {
-        Usuario usuario = criarUsuario();
+        Usuario usuario = new UsuarioBuilder()
+                .comNome("Andrew")
+                .comEmail("andrew@email.com")
+                .comSenha("13579")
+                .criar();
 
-        Leilao leilao = new Leilao("Deutschland Flugzeug Ticket", new BigDecimal("100"), LocalDate.now(), usuario);
+        entityManager.persist(usuario);
+
+        Leilao leilao = new LeilaoBuilder()
+                .comNome("Computer")
+                .comValorInicial("30")
+                .comUsuario(usuario)
+                .criar();
 
         leilao = this.leilaoDao.salvar(leilao);
 
@@ -41,9 +51,19 @@ public class LeilaoDaoTest {
 
     @Test
     void deveriaAtualizarUmLeilao() {
-        Usuario usuario = criarUsuario();
+        Usuario usuario = new UsuarioBuilder()
+                .comNome("Andrew")
+                .comEmail("andrew@email.com")
+                .comSenha("13579")
+                .criar();
 
-        Leilao leilao = new Leilao("Deutschland Flugzeug Ticket", new BigDecimal("100"), LocalDate.now(), usuario);
+        entityManager.persist(usuario);
+
+        Leilao leilao = new LeilaoBuilder()
+                .comNome("Computer")
+                .comValorInicial("30")
+                .comUsuario(usuario)
+                .criar();
 
         leilao = this.leilaoDao.salvar(leilao);
 
@@ -55,12 +75,6 @@ public class LeilaoDaoTest {
 
         Assertions.assertEquals("Airplane Ticket to Germany", leilaoEncontrado.getNome());
         Assertions.assertEquals(usuario, leilaoEncontrado.getUsuario());
-    }
-
-    private Usuario criarUsuario() {
-        Usuario novoUsuario = new Usuario("Andrew", "andrew@email.com", "13579");
-        this.entityManager.persist(novoUsuario);
-        return novoUsuario;
     }
 
     @AfterEach
