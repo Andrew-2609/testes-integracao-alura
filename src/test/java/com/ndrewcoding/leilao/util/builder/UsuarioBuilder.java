@@ -1,5 +1,7 @@
 package com.ndrewcoding.leilao.util.builder;
 
+import com.ndrewcoding.leilao.model.Usuario;
+
 public class UsuarioBuilder {
 
     private String nome;
@@ -19,6 +21,10 @@ public class UsuarioBuilder {
     public UsuarioBuilder comSenha(String senha) {
         this.senha = senha;
         return this;
+    }
+
+    public Usuario criar() {
+        return new Usuario(nome, email, senha);
     }
 
 }

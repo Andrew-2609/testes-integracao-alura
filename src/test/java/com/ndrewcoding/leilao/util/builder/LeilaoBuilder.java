@@ -1,5 +1,6 @@
 package com.ndrewcoding.leilao.util.builder;
 
+import com.ndrewcoding.leilao.model.Leilao;
 import com.ndrewcoding.leilao.model.Usuario;
 
 import java.math.BigDecimal;
@@ -23,6 +24,10 @@ public class LeilaoBuilder {
     public LeilaoBuilder comUsuario(Usuario usuario) {
         this.usuario = usuario;
         return this;
+    }
+
+    public Leilao criar() {
+        return new Leilao(nome, valorInicial, usuario);
     }
 
 }
