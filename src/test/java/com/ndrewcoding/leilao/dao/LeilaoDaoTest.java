@@ -11,6 +11,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import javax.persistence.EntityManager;
+import java.time.LocalDate;
 
 public class LeilaoDaoTest {
 
@@ -40,6 +41,7 @@ public class LeilaoDaoTest {
                 .comNome("Computer")
                 .comValorInicial("30")
                 .comUsuario(usuario)
+                .comDataDeAbertura(LocalDate.now())
                 .criar();
 
         leilao = this.leilaoDao.salvar(leilao);
@@ -63,6 +65,7 @@ public class LeilaoDaoTest {
                 .comNome("Computer")
                 .comValorInicial("30")
                 .comUsuario(usuario)
+                .comDataDeAbertura(LocalDate.now())
                 .criar();
 
         leilao = this.leilaoDao.salvar(leilao);
