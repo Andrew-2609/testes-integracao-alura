@@ -11,7 +11,7 @@ import java.util.List;
 
 @Repository
 public class LeilaoDao {
-    
+
     private final EntityManager em;
 
     @Autowired
@@ -19,8 +19,8 @@ public class LeilaoDao {
         this.em = entityManager;
     }
 
-    public void salvar(Leilao leilao) {
-        em.merge(leilao);
+    public Leilao salvar(Leilao leilao) {
+        return em.merge(leilao);
     }
 
     public Leilao buscarPorId(Long id) {
