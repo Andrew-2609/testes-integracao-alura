@@ -32,9 +32,9 @@ public class LeilaoDaoTest {
 
         Leilao leilao = new Leilao("Deutschland Flugzeug Ticket", new BigDecimal("100"), LocalDate.now(), usuario);
 
-        Leilao leilaoSalvo = this.leilaoDao.salvar(leilao);
+        leilao = this.leilaoDao.salvar(leilao);
 
-        Leilao leilaoEncontrado = this.leilaoDao.buscarPorId(leilaoSalvo.getId());
+        Leilao leilaoEncontrado = this.leilaoDao.buscarPorId(leilao.getId());
 
         Assertions.assertNotNull(leilaoEncontrado);
     }
